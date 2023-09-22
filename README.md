@@ -1,5 +1,6 @@
 
 Kompilacja: make
+
 Uruchomienie: mpirun -oversubscribe -np <liczba proc> main <gnomy> <skrzaty> <agrafki> <celowniki>
 
 
