@@ -26,7 +26,7 @@ Dodaje swoje żądania do lokalnej kolejki queue_agr.
 2. Otrzymuje wiadomości od innych gnomów i skrzatów. Jeżeli otrzyma wiadomość:
 - REQ_AGR, to dodaje gnoma do kolejki do agrafek queue_agr i wysyła potwierdzenie ACK_AGR.
 - RELEASE_BIORE_AGR od gnoma, to usuwa jego żądanie z kolejki i zmniejsza liczbę agrafek o 1.
-- RELEASE_ODDAJE_AGR od skrzata, to zwiększa liczbę agrafek o 1.
+- RELEASE_ODDAJE_AGR_CEL od skrzata, to zwiększa liczbę agrafek i celowników o 1.
 *(watek_komunikacyjny)*
 
 3. Jeżeli liczba agrafek > 0, to gnom sprawdza, czy spełnia warunek (W1). 
@@ -35,7 +35,7 @@ i zmniejsza liczbę agrafek o 1.
 *(watek_glowny)*
 
 4. Jeżeli gnom ma agrafkę, ubiega się o celownik w sposób analogiczny do agrafek 
-(REQ_CEL, RELEASE_ODDAJE_CEL, itd.)
+(REQ_CEL, RELEASE_BIORE_CEL, itd.)
 
 5. Jeżeli gnom ma agrafkę i celownik, to robi z nich broń. 
 Gnom wysyła do skrzatów wiadomość RELEASE_DODAJE_BRON.
@@ -57,5 +57,5 @@ i zmniejsza liczbę broni o 1.
 *(watek_glowny)*
 
 4. Jeżeli skrzat ma broń, to zabija szczura i zwraca agrafkę i celownik. 
-Wysyła RELEASE_ODDAJE_AGR i RELEASE_ODDAJE_CEL do gnomów.
+Wysyła RELEASE_ODDAJE_AGR_CEL do gnomów.
 *(watek_glowny)*
