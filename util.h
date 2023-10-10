@@ -21,13 +21,12 @@ typedef struct {
 #define REQ_CEL 5
 #define REQ_BRON 6
 #define RELEASE_BIORE_AGR 7
-#define RELEASE_ODDAJE_AGR 8
-#define RELEASE_BIORE_CEL 9
-#define RELEASE_ODDAJE_CEL 10
-#define RELEASE_BIORE_BRON 11
-#define RELEASE_DODAJE_BRON 12
-#define APP_PKT 13
-#define FINISH 14
+#define RELEASE_BIORE_CEL 8
+#define RELEASE_ODDAJE_AGR_CEL 9
+#define RELEASE_BIORE_BRON 10
+#define RELEASE_DODAJE_BRON 11
+#define APP_PKT 12
+#define FINISH 13
 
 extern MPI_Datatype MPI_PAKIET_T;
 void inicjuj_typ_pakietu();

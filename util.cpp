@@ -32,10 +32,9 @@ struct tagNames_t{
                 { "potwierdzenie (agrafki)", ACK_AGR}, {"potwierdzenie (celowniki)", ACK_CEL},
 		{"potwierdzenie (bronie)", ACK_BRON}, {"prośba o agrafki", REQ_AGR},
 		{"prośba o celownik", REQ_CEL}, {"prośba o broń", REQ_BRON},
-		{"zwolnienie dostępu do agrafek przez gnoma", RELEASE_BIORE_AGR},
-		{"dodanie agrafki przez skrzata", RELEASE_ODDAJE_AGR}, 
+		{"zwolnienie dostępu do agrafek przez gnoma", RELEASE_BIORE_AGR}, 
 		{"zwolnienie dostępu do celowników przez gnoma", RELEASE_BIORE_CEL},
-		{"dodanie celownika przez skrzata", RELEASE_ODDAJE_CEL},
+		{"dodanie agrafki i celownika przez skrzata", RELEASE_ODDAJE_AGR_CEL},
 		{"dodanie broni przez gnoma", RELEASE_DODAJE_BRON},
 		{"zwolnienie dostępu do broni przez skrzata", RELEASE_BIORE_BRON} };
 

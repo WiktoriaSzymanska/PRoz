@@ -11,12 +11,6 @@ void mainLoopGnom(int gnomy, int skrzaty)
 
     while (stan != InFinish) {
 
-//TODO potrzebne czy nie???
-	//Aktualizacja zegara Lamporta
-//	pthread_mutex_lock(&clockMut);
-//	LamportClock++;
-//	pthread_mutex_unlock(&clockMut);
-
 	switch (stan) {
 	    // AGRAFKI
 	    case InRun: {
@@ -46,7 +40,6 @@ void mainLoopGnom(int gnomy, int skrzaty)
 		break; }
 	    case InWantAgr: {
 		println("GNOM: Czekam na agrafkę");
-		//TODO czy ack poprawnie sprawdzanie?
 		pthread_mutex_lock(&agrCountMut);
 		if (ackAgrCount == gnomy - 1 && queue_agr.check_position(rank, agr_count) == TRUE) {
 			changeState(InSectionAgr); }
@@ -105,7 +98,6 @@ void mainLoopGnom(int gnomy, int skrzaty)
                 break; }
             case InWantCel: {
                 println("GNOM: Czekam na celownik");
-                //TODO czy ack poprawnie sprawdzanie?
                 pthread_mutex_lock(&celCountMut);
                 if (ackCelCount == gnomy - 1 && queue_cel.check_position(rank, cel_count) == TRUE) {
                         changeState(InSectionCel); }
@@ -166,11 +158,6 @@ void mainLoopSkrzat(int gnomy, int skrzaty)
     println("Jestem skrzatem!");
 
     while (stan != InFinish) {
-
-        //Aktualizacja zegara Lamporta //TODO
-//        pthread_mutex_lock(&clockMut);
-//        LamportClock++;
-//        pthread_mutex_unlock(&clockMut);
 
         switch (stan) {
             case InRun: {
@@ -238,8 +225,7 @@ void mainLoopSkrzat(int gnomy, int skrzaty)
                 pkt->data = perc;
                 //wysłanie RELEASE AGR i CEL do gnomów
                 for (int i=0; i<=gnomy-1; i++) {
-                	sendPacket( pkt, i, RELEASE_ODDAJE_AGR);
-			sendPacket( pkt, i, RELEASE_ODDAJE_CEL);
+                	sendPacket( pkt, i, RELEASE_ODDAJE_AGR_CEL);
 		}
 		changeState( InRun );
                 free(pkt);

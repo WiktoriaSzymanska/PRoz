@@ -19,9 +19,8 @@ void *startKomWatekGnom(void *ptr)
         pthread_mutex_unlock( &clockMut );
 
         switch ( status.MPI_TAG ) {
-	    // AGRAFKI
+	    // AGRAFKI - komunikaty odbierane od innych gnomów
 	    case REQ_AGR:
-                //println("dodaje do kolejki %d", status.MPI_SOURCE);
 		// dodanie procesu do kolejki queue_agr
 		pthread_mutex_lock( &agrQueueMut);
 		queue_agr.enqueue(status.MPI_SOURCE, pakiet.ts);
@@ -31,10 +30,9 @@ void *startKomWatekGnom(void *ptr)
 	    break;
 	    case ACK_AGR: 
                 debug("Dostałem ACK od %d, mam już %d", status.MPI_SOURCE, ackAgrCount);
-	        ackAgrCount++; //czy potrzebny mutex? Nie, bo jest tylko dodawanie?
+	        ackAgrCount++;
 	    break;
 	    case RELEASE_BIORE_AGR:
-                //println("usuwam z kolejki %d", status.MPI_SOURCE);
 		// usunięcie żądania z kolejki
 		pthread_mutex_lock( &agrQueueMut);
 		queue_agr.dequeue(status.MPI_SOURCE);
@@ -44,16 +42,9 @@ void *startKomWatekGnom(void *ptr)
 		agr_count--;
                 pthread_mutex_unlock( &agrCountMut);
 	    break;
-	    case RELEASE_ODDAJE_AGR:
-                // zwiększenie liczby agrafek
-                pthread_mutex_lock( &agrCountMut);
-                agr_count++;
-                pthread_mutex_unlock( &agrCountMut);
-	    break;
 
-	    // CELOWNIKI
+	    // CELOWNIKI - komunikaty odbierane od innych gnomów
 	    case REQ_CEL:
-                //println("dodaje do kolejki %d", status.MPI_SOURCE);
                 // dodanie procesu do kolejki queue_cel
                 pthread_mutex_lock( &celQueueMut);
                 queue_cel.enqueue(status.MPI_SOURCE, pakiet.ts);
@@ -66,7 +57,6 @@ void *startKomWatekGnom(void *ptr)
                 ackCelCount++;
             break;
             case RELEASE_BIORE_CEL:
-                //println("usuwam z kolejki %d", status.MPI_SOURCE);
                 // usunięcie żądania z kolejki
                 pthread_mutex_lock( &celQueueMut);
                 queue_cel.dequeue(status.MPI_SOURCE);
@@ -76,7 +66,13 @@ void *startKomWatekGnom(void *ptr)
                 cel_count--;
                 pthread_mutex_unlock( &celCountMut);
             break;
-            case RELEASE_ODDAJE_CEL:
+
+	    // BRON - skrzat oddaje agrafkę i celownik
+            case RELEASE_ODDAJE_AGR_CEL:
+                // zwiększenie liczby agrafek
+		pthread_mutex_lock( &agrCountMut);
+                agr_count++;
+                pthread_mutex_unlock( &agrCountMut);
                 // zwiększenie liczby celowników
                 pthread_mutex_lock( &celCountMut);
                 cel_count++;

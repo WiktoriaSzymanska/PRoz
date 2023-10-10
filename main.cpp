@@ -111,12 +111,9 @@ int main(int argc, char **argv)
     if (rank < gnomy) {
 	pthread_create (&threadKom, NULL, startKomWatekGnom , 0);
     	mainLoopGnom(gnomy, skrzaty);
-    } else {
+    } else if (rank < gnomy + skrzaty) {
 	pthread_create(&threadKom, NULL, startKomWatekSkrzat, 0);
 	mainLoopSkrzat(gnomy, skrzaty);
-                // możesz także wcisnąć ctrl-] na nazwie funkcji
-                // działa, bo używamy ctags (zob Makefile)
-                // jak nie działa, wpisz set tags=./tags :)
     }
 
     finalizuj();
